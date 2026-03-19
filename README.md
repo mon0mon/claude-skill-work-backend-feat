@@ -93,11 +93,12 @@ cd claude-skill-work-backend-feat
 
 ```bash
 # 1. 레포지토리 클론
-git clone https://github.com/mon0mon/claude-skill-work-backend-feat.git ~/path/to/skill
+git clone https://github.com/mon0mon/claude-skill-work-backend-feat.git
 
-# 2. Claude Code 스킬 디렉토리에 심볼릭 링크 생성
-mkdir -p ~/.claude/skills
-ln -s ~/path/to/skill ~/.claude/skills/work-backend-feat
+# 2. 스킬 파일을 Claude Code 스킬 디렉토리에 복사
+mkdir -p ~/.claude/skills/work-backend-feat/references
+cp claude-skill-work-backend-feat/SKILL.md ~/.claude/skills/work-backend-feat/
+cp claude-skill-work-backend-feat/references/*.md ~/.claude/skills/work-backend-feat/references/
 ```
 
 ### 설치 확인
