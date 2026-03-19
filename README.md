@@ -1,76 +1,76 @@
 # work-backend-feat
 
-A [Claude Code](https://docs.anthropic.com/en/docs/claude-code) skill that automates the entire backend feature implementation workflow — from requirements gathering to merge.
+요구사항 수집부터 머지까지, 백엔드 기능 구현의 전체 워크플로우를 자동화하는 [Claude Code](https://docs.anthropic.com/en/docs/claude-code) 스킬입니다.
 
-## Overview
+## 개요
 
-This skill orchestrates a structured, AI-assisted workflow for backend feature development and bug fixes. Each phase includes AI review before user review, so you can focus on key decisions.
+이 스킬은 백엔드 기능 개발 및 버그 수정을 위한 구조화된 AI 지원 워크플로우를 제공합니다. 각 단계마다 AI 리뷰가 사용자 리뷰 전에 선행되어, 핵심 판단에만 집중할 수 있습니다.
 
-### Workflow Phases
-
-```
-Phase 1: Requirements Gathering     → Clarify requirements and scope
-Phase 2: Spec Document              → Generate and review spec document
-Phase 3: AI Review Format           → Structured review with severity levels
-Phase 4: Execution Plan             → TDD-based implementation plan
-Phase 5: Jira Ticket & Branch       → Create Jira issue and git branch
-Phase 6: TDD & Implementation       → Test-first development with code review
-Phase 7: Commit & Push              → Structured commits with user approval
-Phase 8: Pull Request               → Auto-generated PR description
-Phase 9: Merge & Cleanup            → Merge, branch cleanup, Jira completion
-```
-
-### Key Features
-
-- **AI Review at every phase** — Spec review, plan review, code review with structured severity levels (CRITICAL / HIGH / MEDIUM / LOW)
-- **User approval gates** — Every major step requires `(Y/n)` confirmation before proceeding
-- **TDD workflow** — Tests are written before implementation code
-- **Progress tracking** — Visual progress bar shows current phase and completion percentage
-- **Resume support** — Can resume interrupted workflows from the last checkpoint
-- **Jira integration** — Auto-creates tickets, transitions status, links to PRs
-- **Spec & plan templates** — Included templates ensure consistency
-
-### AI Review Format
-
-Issues found during review are presented in a structured format:
+### 워크플로우 단계
 
 ```
-### [P1] Issue Title  [CRITICAL]
-
-**Domain/Context**: Detailed domain description
-**Problem**: What the issue is
-**Scenario**: When it occurs and what happens
-
-**Solutions**:
-  A) Solution description
-     - Rationale, Pros, Cons
-     - Fitness table (architecture, consistency, complexity, maintainability, performance, testability)
-     - Recommendation: Recommended / Not recommended
-
-  B) Alternative solution...
-
-  👉 Recommended: A — One-line reason
+Phase 1: 요구사항 수집          → 요구사항 및 범위 명확화
+Phase 2: 스펙 문서 작성         → 스펙 문서 생성 및 리뷰
+Phase 3: AI 리뷰 형식           → 심각도별 구조화된 리뷰
+Phase 4: 실행 계획 작성         → TDD 기반 구현 계획
+Phase 5: Jira 티켓 & 브랜치     → Jira 이슈 생성 및 git 브랜치 생성
+Phase 6: TDD & 구현             → 테스트 우선 개발 및 코드 리뷰
+Phase 7: 커밋 & 푸시            → 사용자 승인 기반 구조화된 커밋
+Phase 8: PR 생성                → PR 설명 자동 생성
+Phase 9: 머지 & 정리            → 머지, 브랜치 정리, Jira 완료 처리
 ```
 
-## Requirements
+### 주요 기능
+
+- **매 단계 AI 리뷰** — 스펙 리뷰, 계획 리뷰, 코드 리뷰를 구조화된 심각도(CRITICAL / HIGH / MEDIUM / LOW)로 제공
+- **사용자 승인 게이트** — 모든 주요 단계에서 `(Y/n)` 확인 후 진행
+- **TDD 워크플로우** — 구현 코드 전에 테스트를 먼저 작성
+- **진행 상황 추적** — 현재 단계와 완료율을 시각적 프로그레스 바로 표시
+- **워크플로우 재개** — 중단된 워크플로우를 마지막 체크포인트에서 재개 가능
+- **Jira 연동** — 티켓 자동 생성, 상태 전환, PR 연결
+- **스펙 & 실행 계획 템플릿** — 포함된 템플릿으로 일관된 문서 작성
+
+### AI 리뷰 형식
+
+리뷰에서 발견된 문제는 아래와 같은 구조화된 형식으로 제시됩니다:
+
+```
+### [P1] 문제 제목  [CRITICAL]
+
+**도메인/상황**: 도메인에 대한 상세 설명
+**문제 설명**: 문제의 구체적 내용
+**발생 시나리오**: 문제가 발생하는 상황과 결과
+
+**해결 방안**:
+  A) 해결 방법 설명
+     - 근거, 장점, 단점
+     - 적합도 테이블 (아키텍처, 일관성, 복잡도, 유지보수성, 성능, 테스트 용이성)
+     - 추천 여부: 추천 / 비추천
+
+  B) 대안 방법...
+
+  👉 추천: A — 추천 이유 한 줄
+```
+
+## 요구사항
 
 - [Claude Code](https://docs.anthropic.com/en/docs/claude-code) CLI
-- [Atlassian MCP Server](https://github.com/anthropics/claude-code/tree/main/packages/mcp) (for Jira integration)
+- [Atlassian MCP Server](https://github.com/anthropics/claude-code/tree/main/packages/mcp) (Jira 연동용)
 
-### Optional Skills
+### 선택적 스킬
 
-These skills enhance the workflow when installed, but are not required:
+아래 스킬이 설치되어 있으면 워크플로우 품질이 향상되지만, 없어도 독립적으로 동작합니다:
 
-| Skill | Phase | Role |
-|-------|-------|------|
-| `spec-reviewer` | Phase 2 (Spec Review) | Multi-perspective expert review |
-| `test-driven-development` | Phase 6 (TDD) | TDD process guidance |
-| `requesting-code-review` | Phase 6 (Code Review) | Structured code review |
-| `writing-plans` | Phase 4 (Execution Plan) | Systematic plan creation |
+| 스킬 | 단계 | 역할 |
+|------|------|------|
+| `spec-reviewer` | Phase 2 (스펙 리뷰) | 다관점 전문가 리뷰 |
+| `test-driven-development` | Phase 6 (TDD) | TDD 프로세스 가이드 |
+| `requesting-code-review` | Phase 6 (코드 리뷰) | 구조화된 코드 리뷰 |
+| `writing-plans` | Phase 4 (실행 계획) | 체계적 실행 계획 수립 |
 
-## Installation
+## 설치
 
-### Quick Install
+### 빠른 설치
 
 ```bash
 git clone https://github.com/mon0mon/claude-skill-work-backend-feat.git
@@ -78,77 +78,77 @@ cd claude-skill-work-backend-feat
 ./install.sh
 ```
 
-### Manual Install
+### 수동 설치
 
 ```bash
-# 1. Clone the repository
+# 1. 레포지토리 클론
 git clone https://github.com/mon0mon/claude-skill-work-backend-feat.git ~/path/to/skill
 
-# 2. Create symlink to Claude Code skills directory
+# 2. Claude Code 스킬 디렉토리에 심볼릭 링크 생성
 mkdir -p ~/.claude/skills
 ln -s ~/path/to/skill ~/.claude/skills/work-backend-feat
 ```
 
-### Verify Installation
+### 설치 확인
 
-After installation, start Claude Code and try:
+설치 후 Claude Code를 시작하고 아래와 같이 입력해보세요:
 
 ```
-"Add a new API endpoint"
+"새로운 API 엔드포인트 추가해줘"
 ```
 
-The skill triggers on phrases like:
-- "Add a feature", "Fix a bug", "Create an API"
-- "Add an endpoint", "Add a new domain"
-- "Implement this", "Add this", "Create this"
+다음과 같은 표현에서 스킬이 트리거됩니다:
+- "기능 추가해줘", "버그 수정해줘", "API 만들어줘"
+- "엔드포인트 추가", "새로운 도메인 추가"
+- "구현해줘", "추가해줘", "만들어줘"
 
-## Project Structure
+## 프로젝트 구조
 
 ```
 work-backend-feat/
-├── SKILL.md                          # Skill definition (main file)
-├── README.md                         # This file
-├── install.sh                        # Installation script
+├── SKILL.md                          # 스킬 정의 (메인 파일)
+├── README.md                         # 이 파일
+├── install.sh                        # 설치 스크립트
 └── references/
-    ├── spec-template.md              # Spec document template
-    └── plan-template.md              # Execution plan template
+    ├── spec-template.md              # 스펙 문서 템플릿
+    └── plan-template.md              # 실행 계획 템플릿
 ```
 
-## Customization
+## 커스터마이즈
 
-This skill is designed for **Spring Boot + Hexagonal Architecture** projects with Kotlin, but you can adapt it to your stack:
+이 스킬은 **Spring Boot + 헥사고날 아키텍처** (Kotlin) 프로젝트를 기준으로 설계되었지만, 다른 기술 스택에 맞게 수정할 수 있습니다:
 
-1. **Architecture conventions** (Phase 6.3.2) — Update hexagonal architecture checks to match your project structure
-2. **Test conventions** (Phase 6.1) — Modify test base classes and directory patterns
-3. **JPA/DB checks** (Phase 6.3.3-4) — Replace with your ORM-specific checks
-4. **Commit message format** (Phase 7) — Change `PS-{number}` to your convention
-5. **PR base branch** (Phase 8) — Change `develop` to your default branch
-6. **Spec/Plan templates** (references/) — Customize templates to match your team's format
+1. **아키텍처 컨벤션** (Phase 6.3.2) — 헥사고날 아키텍처 체크를 프로젝트 구조에 맞게 변경
+2. **테스트 컨벤션** (Phase 6.1) — 테스트 베이스 클래스 및 디렉토리 패턴 수정
+3. **JPA/DB 체크** (Phase 6.3.3-4) — 사용하는 ORM에 맞는 체크로 교체
+4. **커밋 메시지 형식** (Phase 7) — `PS-{번호}` 형식을 프로젝트 컨벤션에 맞게 변경
+5. **PR base 브랜치** (Phase 8) — `develop`을 기본 브랜치에 맞게 변경
+6. **스펙/실행 계획 템플릿** (references/) — 팀 형식에 맞게 커스터마이즈
 
-## How It Works
+## 동작 방식
 
-### 1. Trigger
+### 1. 트리거
 
-When you ask Claude Code to implement a feature or fix a bug, this skill automatically activates and guides you through the full workflow.
+Claude Code에 기능 구현이나 버그 수정을 요청하면, 이 스킬이 자동으로 활성화되어 전체 워크플로우를 안내합니다.
 
-### 2. Structured Phases
+### 2. 구조화된 단계
 
-Each phase produces artifacts (spec document, execution plan, test code, implementation) with AI review before user approval.
+각 단계에서 산출물(스펙 문서, 실행 계획, 테스트 코드, 구현 코드)을 생성하고, 사용자 승인 전에 AI 리뷰를 수행합니다.
 
-### 3. Documents
+### 3. 문서 생성
 
-The skill generates structured documents:
-- **Spec documents** → `docs/workflow/work/backend/spec/`
-- **Execution plans** → `docs/workflow/work/backend/plans/`
+스킬은 아래 경로에 구조화된 문서를 생성합니다:
+- **스펙 문서** → `docs/workflow/work/backend/spec/`
+- **실행 계획** → `docs/workflow/work/backend/plans/`
 
-### 4. Jira Integration
+### 4. Jira 연동
 
-With the Atlassian MCP server configured, the skill automatically:
-- Creates Jira issues from specs
-- Assigns to the current user
-- Transitions status through the workflow
-- Closes the ticket on merge
+Atlassian MCP 서버가 설정되어 있으면, 스킬이 자동으로:
+- 스펙 기반으로 Jira 이슈 생성
+- 현재 사용자에게 담당자 할당
+- 워크플로우에 따라 상태 전환
+- 머지 완료 시 티켓 종료
 
-## License
+## 라이선스
 
 MIT
